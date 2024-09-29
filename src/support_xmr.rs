@@ -27,11 +27,10 @@ pub mod support_xmr {
     pub fn get_status(url: String) -> Result<SupportXMRStatus, Box<dyn std::error::Error>> {
         let support_xmr_response = minreq::get(&url).send()?;
         if support_xmr_response.status_code == 200 {
-            let support_xmr_response_body: &str = support_xmr_response.as_str()?;
             let support_xmr_status: SupportXMRStatus =
-                serde_json::from_str(support_xmr_response_body)?;
+                serde_json::from_str(support_xmr_response.as_str().unwrap())?;
             return Ok(support_xmr_status);
         }
-        Err("test".into())
+        Err(support_xmr_response.status_code.to_string().into())
     }
 }
