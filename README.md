@@ -5,5 +5,5 @@ Stats feed from SupportXMR in Rust
 ## Example Output
 
 ```
-49y8qk 2738kh/s 0.01037/0.09954
+49y8qk 2738kh/s 0.01037/0.09954 $17.76
 ```
