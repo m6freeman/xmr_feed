@@ -25,7 +25,15 @@ pub mod support_xmr {
     }
 
     pub fn get_status(url: String) -> Result<SupportXMRStatus, Box<dyn std::error::Error>> {
-        let support_xmr_response = minreq::get(&url).send()?;
+        let support_xmr_response = minreq::get(&url)
+            .with_header(
+                "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
+                 AppleWebKit/537.36 (KHTML, like Gecko) \
+                 Chrome/124.0.0.0 Safari/537.36",
+            )
+            .with_header("Accept", "application/json")
+            .send()?;
         if support_xmr_response.status_code == 200 {
             let support_xmr_status: SupportXMRStatus =
                 serde_json::from_str(support_xmr_response.as_str().unwrap())?;
